@@ -235,7 +235,7 @@ function library:CreateWindow(name, size, hidebutton)
     
     window.name = name or ""
     window.size = UDim2.fromOffset(size.X, size.Y) or UDim2.fromOffset(492, 598)
-    window.hidebutton = hidebutton or Enum.KeyCode.RightShift
+     button = hidebutton or Enum.KeyCode.RightShift
     window.theme = library.theme
 
     local updateevent = Instance.new("BindableEvent")
@@ -312,13 +312,6 @@ function library:CreateWindow(name, size, hidebutton)
     updateevent.Event:Connect(function(theme)
         window.Frame.BackgroundColor3 = theme.backgroundcolor
         Shadow.ImageColor3 = theme.accentcolor
-    end)
-
-    uis.InputBegan:Connect(function(key)
-        if uis:GetFocusedTextBox() then return end
-        if key.KeyCode == window.hidebutton then
-            window.Frame.Visible = not window.Frame.Visible
-        end
     end)
 
 
@@ -3567,7 +3560,10 @@ function library:CreateWindow(name, size, hidebutton)
                 end
             end)
 
-            configSystem.Toggle = configSystem.sector:AddKeybind("Menu Toggle",window.hidebutton,function()
+            configSystem.Toggle = configSystem.sector:AddKeybind("Menu Toggle",window.hidebutton,function(Key)
+                if Key.KeyCode == window.hidebutton then
+                    window.Frame.Visible = not window.Frame.Visible
+                end
             end)
 
             return configSystem
