@@ -3568,7 +3568,11 @@ function library:CreateWindow(name, size, hidebutton)
             end)
 
             configSystem.Toggle = configSystem.sector:AddKeybind("Menu Toggle",hidebutton,function(d)
-                window.Frame.Visible = d
+                if d then
+                    window.Frame.Visible = true
+                else
+                    window.Frame.Visible = false
+                end
             end)
 
             return configSystem
